@@ -1,3 +1,7 @@
+# Pooja Beauty Salon
+
+A full-stack salon appointment booking system built with the MERN stack (MongoDB, Express, React, Node.js). This application enables customers to browse available services and book appointments, while providing salon owners with an administrative dashboard to manage bookings.
+
 ## Project Structure
 
 This project is separated into two main directories:
@@ -48,7 +52,7 @@ Follow these steps to get the project running locally.
    ```bash
    npm run dev
    ```
-   The backend server should now be running (typically on `http://localhost:5000` or port specified in `.env`).
+   The backend server should now be running (typically on `http://localhost:8080` or port specified in `.env`).
 
 ### 2. Client Setup
 
@@ -72,6 +76,20 @@ Follow these steps to get the project running locally.
 - **Admin Dashboard**: Salon owners can manage appointments, view booking statuses, and control service offerings.
 - **Authentication**: Secure JWT-based login for admin access.
 - **Responsive Design**: Mobile-friendly and clean UI/UX using Tailwind CSS and shadcn/ui.
+
+## Application Routes
+
+### Frontend Routes
+The client-side React application uses React Router with the following paths:
+- `/` : Home page
+- `/services` : Services listing and booking page
+- `/introduction` : Introduction page
+- `/about` : About page
+
+### Backend API Endpoints
+The backend Express application exposes the following endpoints:
+- `GET /health` : Health check endpoint to verify the server is running.
+- `GET /services` : Retrieves a list of all available salon services.
 
 ## Scripts Details
 
