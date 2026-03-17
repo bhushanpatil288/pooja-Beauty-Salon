@@ -48,7 +48,7 @@ Follow these steps to get the project running locally.
    cp env.sample .env
    ```
    *Edit the `.env` file to include your `MONGODB_URI` and any other required variables.*
-5. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    ```
@@ -74,7 +74,7 @@ Follow these steps to get the project running locally.
 
 - **Customer Portal**: Browse available salon services and book appointments with an easy-to-use interface.
 - **Admin Dashboard**: Salon owners can manage appointments, view booking statuses, and control service offerings.
-- **Authentication**: Secure JWT-based login for admin access.
+- **Authentication**: Secure JWT-based login for admin access and customer signup/login.
 - **Responsive Design**: Mobile-friendly and clean UI/UX using Tailwind CSS and shadcn/ui.
 
 ## Application Routes
@@ -85,12 +85,15 @@ The client-side React application uses React Router with the following paths:
 - `/services` : Services listing and booking page
 - `/introduction` : Introduction page
 - `/about` : About page
+- `/login` : User/Admin login page
+- `/signup` : User registration page
 
 ### Backend API Endpoints
 The backend Express application exposes the following endpoints:
 - `GET /health` : Health check endpoint to verify the server is running.
 - `GET /services` : Retrieves a list of all available salon services.
 - `GET /appointments/all` : Retrieves a list of all appointments in the system.
+- `POST /auth/signup` : Registers a new user and returns a JWT token.
 
 ## Scripts Details
 

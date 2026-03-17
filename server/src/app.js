@@ -11,10 +11,12 @@ app.use(cors());
 const healthcheckRouter = require('./healthcheck/index');
 const serviceRouter = require("./routes/service.route");
 const appointmentRouter = require("./routes/appointment.route");
+const authRouter = require("./routes/auth.route");
 
 app.use("/", healthcheckRouter);
 app.use("/services", serviceRouter);
 app.use("/appointments", appointmentRouter);
+app.use("/auth", authRouter);
 
 // dummy data
 seedServices();

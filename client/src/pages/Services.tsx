@@ -1,18 +1,17 @@
 import Layout from "./Layout"
 import ServicesCard from "../components/CustomComponenents/services/ServicesCard"
 import { useState, useEffect } from "react"
-import axios from "axios";
+import { fetchServices } from "../api/api";
 
 const Services = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const baseurl = import.meta.env.VITE_API_BASE_URL;
     useEffect(() => {
         (async () => {
             try {
                 setLoading(true)
-                const res = await axios.get(`${baseurl}/services`)
+                const res = await fetchServices();
                 setServices(res.data)
                 setLoading(false)
             } catch (err) {
