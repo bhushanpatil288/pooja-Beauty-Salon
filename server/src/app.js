@@ -10,11 +10,13 @@ app.use(cors());
 // routes
 const healthcheckRouter = require('./healthcheck/index');
 const serviceRouter = require("./routes/service.route");
+const appointmentRouter = require("./routes/appointment.route");
 
 app.use("/", healthcheckRouter);
 app.use("/services", serviceRouter);
+app.use("/appointments", appointmentRouter);
 
 // dummy data
-// seedServices();
+seedServices();
 
 module.exports = app;

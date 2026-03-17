@@ -1,4 +1,6 @@
-const serviceModel = require("../models/service.models.js")
+const serviceModel = require("../models/service.model.js");
+const userModel = require("../models/user.model.js");
+const appointmentModel = require("../models/appointment.model.js");
 
 const services = [
     {
@@ -73,12 +75,57 @@ const services = [
     },
 ]
 
+const users = [
+    {
+        name: "John Doe",
+        phone: "1234567890",
+        email: "john@example.com",
+        password: "password123"
+    },
+    {
+        name: "Jane Smith",
+        phone: "0987654321",
+        email: "jane@example.com",
+        password: "password123"
+    }
+];
+
 const seedServices = async () => {
     try {
-        await serviceModel.create(services);
+        await serviceModel.deleteMany({});
+        await userModel.deleteMany({});
+        await appointmentModel.deleteMany({});
+
+        const createdServices = await serviceModel.create(services);
         console.log("testing services added");
+
+        const createdUsers = await userModel.create(users);
+        console.log("testing users added");
+
+        const appointments = [
+            {
+                userId: createdUsers[0]._id,
+                serviceId: createdServices[0]._id,
+                date: new Date(new Date().getTime() + 24 * 60 * 60 * 1000), // Tomorrow
+                time: "10:00 AM",
+                status: "booked",
+                notes: "Looking forward to it"
+            },
+            {
+                userId: createdUsers[1]._id,
+                serviceId: createdServices[1]._id,
+                date: new Date(new Date().getTime() + 48 * 60 * 60 * 1000), // Day after tomorrow
+                time: "02:00 PM",
+                status: "completed",
+                notes: "Great service"
+            }
+        ];
+
+        await appointmentModel.create(appointments);
+        console.log("testing appointments added");
+
     } catch (e) {
-        console.log("failed to seed services");
+        console.log("failed to seed data", e);
     }
 }
 
