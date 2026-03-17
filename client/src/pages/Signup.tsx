@@ -22,7 +22,7 @@ const Signup = () => {
     }
     return (
         <Layout>
-            <div className="flex justify-center items-center h-180">
+            <div className="flex justify-center items-center flex-grow py-10">
                 <div className="flex flex-col gap-2">
                     <h1 className="text-2xl font-bold text-primary">Signup</h1>
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>

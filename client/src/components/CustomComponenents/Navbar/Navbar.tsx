@@ -18,7 +18,7 @@ import { Button } from "../../ui/button";
 
 export default function Navbar() {
   return (
-    <div className="bg-primary text-secondary flex justify-between items-center px-3 py-2">
+    <div className="bg-primary container mx-auto mt-2 rounded-xl text-secondary flex justify-between items-center px-3 py-2">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>

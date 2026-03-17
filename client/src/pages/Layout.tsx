@@ -3,9 +3,9 @@ import Footer from "../components/CustomComponenents/Footer/Footer"
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div>
+      <div className="flex-grow flex flex-col">
         {children}
       </div>
       <Footer />
