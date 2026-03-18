@@ -36,7 +36,7 @@ export default function Navbar() {
   const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <div className="glass fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-7xl rounded-2xl flex flex-col px-4 py-3 transition-all duration-300">
+    <div className="bg-primary/10 backdrop-blur-md fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-7xl rounded-2xl flex flex-col px-4 py-3 transition-all duration-300">
       <div className="flex justify-between items-center w-full">
         <Link to="/" onClick={closeMenu}>
           <p className="text-xl font-bold text-primary">Pooja Beauty</p>

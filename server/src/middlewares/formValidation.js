@@ -16,4 +16,15 @@ const signupValidation = [
         .withMessage("Name must be at least 3 characters long")
 ]
 
-module.exports = { signupValidation }
+const loginValidation = [
+    body("phone")
+        .isMobilePhone("en-IN")
+        .withMessage("Enter valid phone number")
+        .notEmpty()
+        .withMessage("Phone number is required"),
+    body("password")
+        .notEmpty()
+        .withMessage("Password is required")
+]
+
+module.exports = { signupValidation, loginValidation }

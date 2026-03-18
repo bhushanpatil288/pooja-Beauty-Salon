@@ -1,7 +1,13 @@
-import Layout from "./Layout"
-import { useState } from "react"
+import Layout from "./Layout";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { login } from "../api/api";
 
 const Login = () => {
+    const { setUser } = useAuth();
+    const navigate = useNavigate();
+    const [error, setError] = useState("");
     const [formData, setFormData] = useState({
         phone: "",
         password: ""
@@ -14,9 +20,18 @@ const Login = () => {
         })
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(formData)
+        try {
+            const response = await login(formData);
+            setUser(response.data.user)
+            navigate("/")
+        } catch (e: any) {
+            setError(e.response.data.message);
+            setTimeout(() => {
+                setError("");
+            }, 2000);
+        }
     }
     return (
         <Layout>
@@ -41,6 +56,7 @@ const Login = () => {
                             autoComplete="current-password"
                             className="border border-gray-300 rounded-md px-2 py-1 text-primary"
                         />
+                        {error && <p className="text-red-500">{error}</p>}
                         <button type="submit" className="bg-primary text-secondary rounded-md px-2 py-1 cursor-pointer">Login</button>
                     </form>
                 </div>

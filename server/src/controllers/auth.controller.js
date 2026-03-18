@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 const userModel = require("../models/user.model");
-const { hashPass } = require("../utils/bcrypt");
+const { hashPass, comparePass } = require("../utils/bcrypt");
 const { genToken } = require("../utils/jwt");
 
 const signup = async (req, res) => {
@@ -66,4 +66,48 @@ const logout = async (req, res) => {
     }
 }
 
-module.exports = { signup, logout }
+const login = async (req, res) => {
+    try {
+        const error = validationResult(req);
+        if (!error.isEmpty) {
+            return res.status(400).json({
+                message: error.array()[0].msg
+            })
+        }
+
+        const { phone, password } = req.body;
+
+        const user = await userModel.findOne({ phone });
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+
+        const isPasswordValid = await comparePass(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                message: "Invalid password"
+            })
+        }
+
+        const token = genToken(user._id, user.phone);
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax"
+        });
+        return res.status(200).json({
+            message: "User logged in successfully",
+            user: user
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error: err.message
+        })
+    }
+}
+
+module.exports = { signup, logout, login }
