@@ -1,4 +1,5 @@
-import { services } from "../../../constants/data";
+import { Link } from "react-router-dom";
+import { services, quickLinks, socialLinks } from "../../../constants/data";
 
 const Footer = () => {
   return (
@@ -14,18 +15,22 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-6 text-foreground">Our Services</h3>
           <ul className="flex flex-col gap-3">
             {services.slice(0, 5).map((item, i) => (
-              <li key={i} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">
-                {item.title}
-              </li>
+              <Link to={item.href}>
+                <li key={i} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">
+                  {item.title}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
         <div>
           <h3 className="font-bold text-lg mb-6 text-foreground">Quick Links</h3>
           <ul className="flex flex-col gap-3">
-            {['About Us', 'Contact', 'FAQ', 'Careers'].map((item, i) => (
+            {quickLinks.map((item, i) => (
               <li key={i} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">
-                {item}
+                <Link to={item.href}>
+                  {item.title}
+                </Link>
               </li>
             ))}
           </ul>
@@ -33,9 +38,17 @@ const Footer = () => {
         <div>
           <h3 className="font-bold text-lg mb-6 text-foreground">Connect</h3>
           <ul className="flex flex-col gap-3">
-            <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">Instagram</li>
-            <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">Facebook</li>
-            <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">Twitter</li>
+            {socialLinks.map((item, i) => {
+              const Icon = item.icon as React.ElementType;
+              return (
+                <li key={i} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">
+                  <Link to={item.href} className="flex items-center gap-2">
+                    <Icon className="w-4 h-4" />
+                    {item.title}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

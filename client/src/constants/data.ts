@@ -1,4 +1,11 @@
+import { SiInstagram, SiFacebook, SiX } from "@icons-pack/react-simple-icons";
 export const services: { title: string; href: string; description: string }[] = [
+  {
+    title: "View All",
+    href: "/services",
+    description:
+      "View All Services",
+  },
   {
     title: "Service 1",
     href: "/services/service-1",
@@ -16,11 +23,44 @@ export const services: { title: string; href: string; description: string }[] = 
     href: "/services/service-3",
     description:
       "This is a dummy description"
+  }
+]
+
+
+export const quickLinks: { title: string, href: string }[] = [
+  {
+    title: "About Us",
+    href: "/about"
   },
   {
-    title: "View All",
-    href: "/services",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+    title: "Contact",
+    href: "/contact"
   },
+  {
+    title: "FAQ",
+    href: "/faq"
+  },
+  {
+    title: "Careers",
+    href: "/careers"
+  }
+]
+
+
+export const socialLinks: { title: string, href: string, icon: React.ComponentType }[] = [
+  {
+    title: "Instagram",
+    href: "instagram.com",
+    icon: SiInstagram
+  },
+  {
+    title: "Facebook",
+    href: "facebook.com",
+    icon: SiFacebook
+  },
+  {
+    title: "Twitter",
+    href: "x.com",
+    icon: SiX
+  }
 ]
