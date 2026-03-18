@@ -2,6 +2,11 @@
 
 A full-stack salon appointment booking system built with the MERN stack (MongoDB, Express, React, Node.js). This application enables customers to browse available services and book appointments, while providing salon owners with an administrative dashboard to manage bookings.
 
+## Recent Updates
+
+- **User Authentication**: Fully implemented the secure `POST /auth/login` endpoint with data validation and connected the React frontend (`Login.tsx`) to the `AuthContext` to manage sessions seamlessly.
+- **UI/UX Refinements**: Polished the navigation bar and footer with frosted glass effects (`backdrop-blur-md`), refined color opacities, updated typography weights, and properly integrated React components for social links with live URLs.
+
 ## Project Structure
 
 This project is separated into two main directories:
@@ -94,6 +99,7 @@ The backend Express application exposes the following endpoints:
 - `GET /services` : Retrieves a list of all available salon services.
 - `GET /appointments/all` : Retrieves a list of all appointments in the system.
 - `POST /auth/signup` : Registers a new user and sets a JWT cookie (handles `409 Conflict` for existing users).
+- `POST /auth/login` : Authenticates an existing user and sets a secure JWT cookie.
 - `GET /auth/user` : Retrieves the currently authenticated user based on the JWT cookie.
 - `POST /auth/logout` : Logs out the user by clearing the JWT cookie.
 
