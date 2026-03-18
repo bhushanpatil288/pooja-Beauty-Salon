@@ -1,6 +1,7 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { Home, Services, Introduction, About, Login, Signup, Profile } from "./pages/index.ts"
 import { AuthProvider } from "./context/AuthContext.tsx"
+import ProtectedRoute from "./components/CustomComponenents/ProtectedRoute.tsx"
 
 const App = () => {
   return (
@@ -13,7 +14,11 @@ const App = () => {
           <Route path="/about" element=<About /> />
           <Route path="/login" element=<Login /> />
           <Route path="/signup" element=<Signup /> />
-          <Route path="/profile" element=<Profile /> />
+          <Route path="/profile" element=
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
