@@ -1,7 +1,12 @@
 const Image = ({ src }: { src: string }) => {
     return (
-        <div className="hero-img-container h-full rounded-2xl overflow-hidden shadow">
-            <img src={src} alt="Parlour image" className="w-full h-full object-cover brightness-80 sepia-25 contrast-75" />
+        <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl group">
+            <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
+            <img
+                src={src}
+                alt="Parlour visual"
+                className="w-full h-full object-cover grayscale-[50%] sepia-[10%] brightness-75 hover:grayscale-0 hover:sepia-0 hover:scale-105 transition-all duration-700 ease-out"
+            />
         </div>
     )
 }
