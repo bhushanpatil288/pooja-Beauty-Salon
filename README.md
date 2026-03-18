@@ -95,6 +95,7 @@ The backend Express application exposes the following endpoints:
 - `GET /appointments/all` : Retrieves a list of all appointments in the system.
 - `POST /auth/signup` : Registers a new user and sets a JWT cookie (handles `409 Conflict` for existing users).
 - `GET /auth/user` : Retrieves the currently authenticated user based on the JWT cookie.
+- `POST /auth/logout` : Logs out the user by clearing the JWT cookie.
 
 ## Scripts Details
 
