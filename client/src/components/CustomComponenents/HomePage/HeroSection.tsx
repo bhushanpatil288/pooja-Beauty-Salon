@@ -13,7 +13,7 @@ const HeroSection = () => {
                     <div className="w-full lg:w-1/2 p-5 py-20  text-center flex flex-col gap-8 justify-center animate-in fade-in slide-in-from-bottom-8 duration-700">
                         <div className="flex flex-col gap-6">
                             <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-gradient pb-2">
-                                Pooja Beauty Parlour <br /> & Coaching Classes
+                                Pooja Beauty Parlour <br /> & Classes
                             </h1>
                             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                                 Welcome to Pooja Beauty Parlour, where we believe every woman deserves to feel confident and beautiful. Experience premium services in a warm, welcoming environment.

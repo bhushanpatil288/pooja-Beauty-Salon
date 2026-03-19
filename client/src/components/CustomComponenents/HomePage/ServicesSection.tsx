@@ -27,7 +27,7 @@ const ServicesSection = () => {
                     </div>
                 ) : (
                     services.length !== 0 ? (
-                        services.map((service: any) => (
+                        services.slice(0, 6).map((service: any) => (
                             <ServicesCard key={service._id} service={service} />
                         ))
                     ) : (
