@@ -20,10 +20,12 @@ const HeroSection = () => {
                             </p>
                         </div>
                         <div className="flex justify-center gap-4 flex-col md:flex-row">
-                            <Button size="lg" className="rounded-full shadow-lg hover:shadow-xl transition-all h-14 px-8 text-lg cursor-pointer">
-                                Book Appointment
-                                <MousePointerClick className="ml-2 w-5 h-5" />
-                            </Button>
+                            <Link to="/appointments">
+                                <Button size="lg" className="rounded-full shadow-lg hover:shadow-xl transition-all h-14 px-8 text-lg cursor-pointer">
+                                    Book Appointment
+                                    <MousePointerClick className="ml-2 w-5 h-5" />
+                                </Button>
+                            </Link>
                             <Link to="/services">
                                 <Button size="lg" variant="outline" className="rounded-full h-14 px-8 text-lg glass cursor-pointer w-full">
                                     View Services

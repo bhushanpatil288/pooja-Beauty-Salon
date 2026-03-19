@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom"
-import { Home, Services, Introduction, About, Login, Signup, Profile } from "./pages/index.ts"
+import { Home, Services, Introduction, About, Login, Signup, Profile, Appointment } from "./pages"
 import { AuthProvider } from "./context/AuthContext.tsx"
 import ProtectedRoute from "./components/CustomComponenents/ProtectedRoute.tsx"
 import { ServicesProvider } from "./context/ServicesContext.tsx"
@@ -19,6 +19,11 @@ const App = () => {
             <Route path="/profile" element=
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            />
+            <Route path="/appointments" element=
+              <ProtectedRoute>
+                <Appointment />
               </ProtectedRoute>
             />
           </Routes>

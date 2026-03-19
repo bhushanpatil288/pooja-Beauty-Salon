@@ -7,3 +7,4 @@ export const signup = async (formData: any) => await axios.post(`${baseurl}/auth
 export const login = async (formData: any) => await axios.post(`${baseurl}/auth/login`, formData, { withCredentials: true });
 export const logout = async () => await axios.post(`${baseurl}/auth/logout`, {}, { withCredentials: true });
 export const fetchUser = async () => await axios.get(`${baseurl}/auth/user`, { withCredentials: true });
+export const createAppointment = async (formData: any) => await axios.post(`${baseurl}/appointments/create`, formData, { withCredentials: true });

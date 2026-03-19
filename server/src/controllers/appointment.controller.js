@@ -1,4 +1,5 @@
 const Appointment = require("../models/appointment.model");
+
 const showAllAppointments = async (req, res) => {
     try {
         const appointments = await Appointment.find();
@@ -9,4 +10,24 @@ const showAllAppointments = async (req, res) => {
     }
 }
 
-module.exports = { showAllAppointments };
+const createAppointment = async (req, res) => {
+    try {
+        const { userId, serviceId, date, time, notes } = req.body;
+
+        const newAppointment = new Appointment({
+            userId,
+            serviceId,
+            date,
+            time,
+            notes,
+            status: 'booked'
+        });
+        await newAppointment.save();
+        res.status(201).send(newAppointment);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({ message: "Failed to book appointment" });
+    }
+}
+
+module.exports = { showAllAppointments, createAppointment };
