@@ -1,26 +1,10 @@
 import Layout from "./Layout"
 import ServicesCard from "../components/CustomComponenents/services/ServicesCard"
-import { useState, useEffect } from "react"
-import { fetchServices } from "../api/api";
+import { useServices } from "../context/ServicesContext";
 
 const Services = () => {
-    const [services, setServices] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    useEffect(() => {
-        (async () => {
-            try {
-                setLoading(true)
-                const res = await fetchServices();
-                setServices(res.data)
-                setLoading(false)
-            } catch (err) {
-                console.log(err)
-                setError("Failed to fetch services")
-                setLoading(false)
-            }
-        })()
-    }, []);
+    const { services, loading, error } = useServices();
+
     return (
         <Layout>
             <section className="container mx-auto max-w-7xl py-24 px-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -28,13 +12,13 @@ const Services = () => {
                     <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gradient mb-4">Our Services</h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Discover our range of premium beauty treatments carefully designed to make you look and feel your absolute best.</p>
                 </div>
-                
+
                 {error && (
                     <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-4 max-w-md mx-auto mb-10 text-center">
                         <p className="text-destructive font-semibold">{error}</p>
                     </div>
                 )}
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {loading ?
                         <div className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center py-20">

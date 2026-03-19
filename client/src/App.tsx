@@ -2,25 +2,28 @@ import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { Home, Services, Introduction, About, Login, Signup, Profile } from "./pages/index.ts"
 import { AuthProvider } from "./context/AuthContext.tsx"
 import ProtectedRoute from "./components/CustomComponenents/ProtectedRoute.tsx"
+import { ServicesProvider } from "./context/ServicesContext.tsx"
 
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element=<Home /> />
-          <Route path="/services" element=<Services /> />
-          <Route path="/introduction" element=<Introduction /> />
-          <Route path="/about" element=<About /> />
-          <Route path="/login" element=<Login /> />
-          <Route path="/signup" element=<Signup /> />
-          <Route path="/profile" element=
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          />
-        </Routes>
-      </BrowserRouter>
+      <ServicesProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element=<Home /> />
+            <Route path="/services" element=<Services /> />
+            <Route path="/introduction" element=<Introduction /> />
+            <Route path="/about" element=<About /> />
+            <Route path="/login" element=<Login /> />
+            <Route path="/signup" element=<Signup /> />
+            <Route path="/profile" element=
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            />
+          </Routes>
+        </BrowserRouter>
+      </ServicesProvider>
     </AuthProvider>
   )
 }

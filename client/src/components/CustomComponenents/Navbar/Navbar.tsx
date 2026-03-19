@@ -102,7 +102,7 @@ export default function Navbar() {
               :
               <>
                 <Link to={"/signup"}>
-                  <Button variant={"default"} size={"lg"} className="cursor-pointer hover:bg-secondary hover:text-primary transition-all">
+                  <Button variant={"default"} size={"lg"} className="cursor-pointer hover:text-white transition-all">
                     <UserPlus className="mr-2 h-4 w-4" />
                     Signup
                   </Button>
