@@ -3,8 +3,11 @@ const userModel = require("../models/user.model.js");
 
 const userAuth = async (req, res, next) => {
     try {
-        const token = req.cookies.token;
-        console.log(token)
+        let token = req.cookies.token;
+        if (!token && req.headers.authorization && req.headers.authorization.startsWith("Bearer ")) {
+            token = req.headers.authorization.split(" ")[1];
+        }
+        console.log("Token received:", token ? "Yes" : "No");
         if (!token) {
             return res.status(401).json({ message: "Unauthorized" });
         }
