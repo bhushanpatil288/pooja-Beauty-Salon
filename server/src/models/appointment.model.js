@@ -12,7 +12,7 @@ const appointmentModel = mongoose.Schema({
         require: true
     },
     time: {
-        type: String,
+        type: String,       // 24 hour format 00:00
         require: true
     },
     status: {
@@ -27,6 +27,9 @@ const appointmentModel = mongoose.Schema({
     serviceId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "service"
+    },
+    duration: {
+        type: Number
     }
 }, { timestamps: true });
 

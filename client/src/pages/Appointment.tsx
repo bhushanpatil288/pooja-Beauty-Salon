@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
@@ -6,6 +6,9 @@ import { useServices } from "../context/ServicesContext";
 import { Button } from "../components/ui/button";
 import { createAppointment } from "../api/api";
 import { CalendarDays, Clock, FileText, Sparkles } from "lucide-react";
+import { TIME_SLOTS } from "../constants/data";
+import { isSlotAvailable, getBlockedRanges, timeToMinutes } from "../utils/appointment-utils";
+import { getAppointmentsByDate } from "../api/api";
 
 export default function Appointment() {
   const { services, loading: servicesLoading } = useServices();
@@ -16,10 +19,15 @@ export default function Appointment() {
     date: "",
     time: "",
     notes: "",
+    duration: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [blockedRanges, setBlockedRanges] = useState<any[]>([]);
+  const [selectedService, setSelectedService] = useState<any>(null);
 
   // Get tomorrow's date for minimum valid date selection
   const tomorrow = new Date();
@@ -41,6 +49,8 @@ export default function Appointment() {
     try {
       setIsSubmitting(true);
       setError("");
+
+      console.log(formData)
       await createAppointment(formData);
       setSuccess(true);
       setTimeout(() => {
@@ -53,6 +63,26 @@ export default function Appointment() {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    if (formData.serviceId && services.length > 0) {
+      const service = services.find((s: any) => s._id === formData.serviceId);
+      setFormData(prev => ({ ...prev, duration: service?.duration || "" }));
+      setSelectedService(service);
+    }
+
+    if (formData.date) {
+      getAppointmentsByDate(formData.date)
+        .then((res) => {
+          setAppointments(res.data);
+          setBlockedRanges(getBlockedRanges(res.data));
+        })
+        .catch(console.error);
+    } else {
+      setAppointments([]);
+      setBlockedRanges([]);
+    }
+  }, [formData.serviceId, formData.date, services])
 
   return (
     <Layout>
@@ -148,16 +178,18 @@ export default function Appointment() {
                       className="flex h-12 w-full appearance-none rounded-xl border border-input bg-background/50 backdrop-blur-sm px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     >
                       <option value="" disabled>-- Select time --</option>
-                      <option value="09:00">09:00 AM</option>
-                      <option value="10:00">10:00 AM</option>
-                      <option value="11:00">11:00 AM</option>
-                      <option value="12:00">12:00 PM</option>
-                      <option value="13:00">01:00 PM</option>
-                      <option value="14:00">02:00 PM</option>
-                      <option value="15:00">03:00 PM</option>
-                      <option value="16:00">04:00 PM</option>
-                      <option value="17:00">05:00 PM</option>
-                      <option value="18:00">06:00 PM</option>
+                      {TIME_SLOTS.map((slot) => {
+                        const isAvailable = isSlotAvailable(
+                          slot,
+                          selectedService?.duration || 0,
+                          blockedRanges
+                        );
+                        return (
+                          <option key={slot} value={slot} disabled={!isAvailable}>
+                            {slot}
+                          </option>
+                        );
+                      })}
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-muted-foreground">
                       <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -180,6 +212,7 @@ export default function Appointment() {
                   className="flex min-h-[100px] w-full rounded-xl border border-input bg-background/50 backdrop-blur-sm px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 />
               </div>
+
 
               <div className="pt-4">
                 <Button

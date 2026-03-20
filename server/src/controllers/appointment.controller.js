@@ -12,7 +12,7 @@ const showAllAppointments = async (req, res) => {
 
 const createAppointment = async (req, res) => {
     try {
-        const { serviceId, date, time, notes } = req.body;
+        const { serviceId, date, time, notes, duration } = req.body;
         const userId = req.user._id;
 
         const newAppointment = new Appointment({
@@ -21,6 +21,7 @@ const createAppointment = async (req, res) => {
             date,
             time,
             notes,
+            duration,
             status: 'booked'
         });
         await newAppointment.save();
@@ -31,4 +32,23 @@ const createAppointment = async (req, res) => {
     }
 }
 
-module.exports = { showAllAppointments, createAppointment };
+const getAppointmentsByDate = async (req, res) => {
+    try {
+        const date = req.params.date;
+        const start = new Date(date);
+        const end = new Date(start);
+        end.setDate(end.getDate() + 1);
+
+        const appointments = await Appointment.find({
+            date: {
+                $gte: start,
+                $lt: end
+            }
+        });
+        res.send(appointments);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({ message: "Failed to get appointments" });
+    }
+}
+module.exports = { showAllAppointments, createAppointment, getAppointmentsByDate };

@@ -15,8 +15,8 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-6 text-foreground">Our Services</h3>
           <ul className="flex flex-col gap-3">
             {services.slice(0, 5).map((item, i) => (
-              <Link to={item.href}>
-                <li key={i} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">
+              <Link to={item.href} key={i}>
+                <li className="text-muted-foreground hover:text-primary transition-colors cursor-pointer text-sm font-medium">
                   {item.title}
                 </li>
               </Link>

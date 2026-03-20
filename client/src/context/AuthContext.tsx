@@ -4,6 +4,7 @@ import { fetchUser } from "../api/api";
 interface AuthContextType {
     user: any | null;
     token: string | null;
+    loading: boolean;
     setUser: React.Dispatch<React.SetStateAction<any | null>>;
     setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -13,19 +14,24 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<any | null>(null);
     const [token, setToken] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
-        const fetchUser = async () => {
+        const getUser = async () => {
             try {
                 const res = await fetchUser();
-                setUser(res.data.user);
+                setUser(res.data.user || res.data); // handles variations depending on API wrapper
             } catch (err) {
                 setUser(null);
+            } finally {
+                setLoading(false);
             }
         }
+        getUser();
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, token, setUser, setToken }}>
+        <AuthContext.Provider value={{ user, token, loading, setUser, setToken }}>
             {children}
         </AuthContext.Provider>
     )

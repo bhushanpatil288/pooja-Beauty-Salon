@@ -4,9 +4,9 @@ A full-stack salon appointment booking system built with the MERN stack (MongoDB
 
 ## Recent Updates
 
-- **Appointment Booking Flow**: Created a fully functional `Appointment.tsx` page with a beautiful, responsive Tailwind CSS form. Added robust validation, integrated with `ServicesContext` to fetch dynamic service options, and implemented the `POST /appointments/create` backend endpoint to save bookings to MongoDB. Secured the route with an authentication middleware check.
-- **User Authentication**: Fully implemented the secure `POST /auth/login` endpoint with data validation and connected the React frontend (`Login.tsx`) to the `AuthContext` to manage sessions seamlessly.
-- **UI/UX Refinements**: Polished the navigation bar and footer with frosted glass effects (`backdrop-blur-md`), refined color opacities, updated typography weights, and properly integrated React components for social links with live URLs.
+- **Appointment Booking Flow & Logic**: Created a fully functional `Appointment.tsx` booking page and implemented robust timeslot blocking logic to prevent overlapping or double-bookings. Integrated `GET /appointments/date/:date` to accurately fetch and calculate blocked slots dynamically based on service duration.
+- **Auth Session Persistence**: Fixed the `AuthContext` state to reliably verify the user session on page refresh via the `/auth/user` endpoint. Introduced a `loading` state to prevent `<ProtectedRoute>` components from prematurely kicking out authenticated users.
+- **UI/UX Refinements & Bug Fixes**: Polished the navigation bar and footer with frosted glass effects, resolved React list rendering warnings in `Footer.tsx`, and ensured fully responsive dynamic styling across forms.
 
 ## Project Structure
 
@@ -89,18 +89,19 @@ Follow these steps to get the project running locally.
 The client-side React application uses React Router with the following paths:
 - `/` : Home page
 - `/services` : Services listing and detailed view
-- `/appointments` : Secure appointment booking page
+- `/appointments` : Secure appointment booking page (Protected Route)
 - `/introduction` : Introduction page
 - `/about` : About page
 - `/login` : User/Admin login page
 - `/signup` : User registration page
-- `/profile` : User profile and dashboard
+- `/profile` : User profile and dashboard (Protected Route)
 
 ### Backend API Endpoints
 The backend Express application exposes the following endpoints:
 - `GET /health` : Health check endpoint to verify the server is running.
 - `GET /services` : Retrieves a list of all available salon services.
 - `GET /appointments/all` : Retrieves a list of all appointments in the system.
+- `GET /appointments/date/:date` : Retrieves all appointments booked for a specific date to handle correct overlapping and availability.
 - `POST /appointments/create` : Creates a new appointment booking.
 - `POST /auth/signup` : Registers a new user and sets a JWT cookie (handles `409 Conflict` for existing users).
 - `POST /auth/login` : Authenticates an existing user and sets a secure JWT cookie.
